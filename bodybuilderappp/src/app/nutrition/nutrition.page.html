@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Nutrition
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- The ion-content component contains the main content of the page -->
+<ion-content>
+  <!-- A form with formGroup directive -->
+  <form [formGroup]="form">
+    <!-- An ion-item component for body types selection -->
+    <ion-item>
+      <ion-label>Body types</ion-label>
+      <!-- An ion-select component for body types options -->
+      <ion-select formControlName="selector1">
+        <ion-select-option value="Ectomorph">Ectomorph</ion-select-option>
+        <ion-select-option value="Mesomorph">Mesomorph</ion-select-option>
+        <ion-select-option value="Endomorph">Endomorph</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <!-- An ion-item component for sex selection, which is displayed only if a body type is selected -->
+    <ion-item *ngIf="form.controls['selector1'].value">
+      <ion-label>Sexs</ion-label>
+      <!-- An ion-select component for sex options -->
+      <ion-select formControlName="selector2">
+        <ion-select-option value="Male">Male</ion-select-option>
+        <ion-select-option value="Female">Female</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+
+  <!-- Buttons to add rows, displayed only if a sex is selected -->
+  <ion-button *ngIf="form.controls['selector2'].value" (click)="addRow()">Add Row</ion-button>
+  <ion-button *ngIf="form.controls['selector2'].value" (click)="customAddRow()">Custom Add Row</ion-button>
+
+  <!-- A grid to display rows, displayed only if there are rows -->
+  <ion-grid *ngIf="rows.length > 0">
+    <!-- A row for headers -->
+    <ion-row>
+      <ion-col>
+        <strong>Unit ratio per 100 grams</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Food</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Calories per 100g</strong>
+      </ion-col>
+    </ion-row>
+    <!-- Rows for data, one for each item in the rows array -->
+    <ion-row *ngFor="let row of rows; let i = index">
+      <ion-col>
+        <!-- An input for the unit ratio -->
+        <ion-input [(ngModel)]="row.col1" type="number" placeholder="Enter Number"></ion-input>
+      </ion-col>
+      <ion-col>
+        <!-- An input for the food name -->
+        <ion-input [(ngModel)]="row.col2" type="text" placeholder="Enter Text" (ngModelChange)="onStringInputChanged(row)"></ion-input>
+      </ion-col>
+      <ion-col>
+        <!-- An input for the calories, displayed only if the row is custom -->
+        <ion-input *ngIf="row.custom" [(ngModel)]="row.col3" type="number" placeholder="Enter Number" (ngModelChange)="calculateCalories()"></ion-input>
+        <!-- A paragraph to display the query result, displayed only if the row is not custom -->
+        <p *ngIf="!row.custom">{{ row.queryResult }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- An item to display the consumed calories -->
+  <ion-item>
+    <ion-label style="color: #097823"> Consumed Calories</ion-label>
+    <ion-input [(ngModel)]="consumedCalories" readonly></ion-input>
+  </ion-item>
+
+  <!-- An item to display the remaining calories -->
+  <ion-item>
+    <ion-label style="color: #ff0400">Remaining Calories </ion-label>
+    <ion-input [(ngModel)]="remainingCalories" readonly></ion-input>
+  </ion-item>
+</ion-content>

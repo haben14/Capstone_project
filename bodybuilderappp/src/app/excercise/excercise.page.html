@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Exercise</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Primary Selector -->
+  <ion-item>
+    <ion-label>Body types</ion-label>
+    <ion-select [(ngModel)]="selectedBodytypes" (ionChange)="onBodytypesSelected($event.detail.value)">
+      <ion-select-option *ngFor="let option of BodytypesOptions" [value]="option">{{ option }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Secondary Selector (displayed after primary selection) -->
+  <ion-item *ngIf="selectedBodytypes">
+    <ion-label>Sex</ion-label>
+    <ion-select [(ngModel)]="selectedSexs" (ionChange)="onSexsSelected($event.detail.value)">
+      <!-- Populate secondary options based on the primary selection -->
+      <ion-select-option *ngFor="let option of SexsOptions" [value]="option">{{ option }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Third Selector (displayed after second selection) -->
+  <ion-item *ngIf="selectedSexs" (ionChange)="onWeek_daySelected($any($event))">
+    <ion-label>Week days</ion-label>
+    <ion-select [(ngModel)]="selectedWeek_day">
+      <!-- Populate third options based on the second selection -->
+      <ion-select-option *ngFor="let option of Week_dayOptions" [value]="option">{{ option }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+      <!-- Dispaly exercise content from database -->
+  <ion-card *ngIf="selectedWeek_day">
+    <ion-card-content style="font-family: Verdana; font-size: 20px; color: #0000ff;">
+      {{ dataFromDatabase?.excercise }}
+    </ion-card-content>
+  </ion-card>
+  

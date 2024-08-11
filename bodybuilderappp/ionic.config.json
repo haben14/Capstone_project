@@ -1,0 +1,7 @@
+{
+  "name": "bodybuilderappp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

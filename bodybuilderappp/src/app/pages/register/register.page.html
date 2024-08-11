@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+
+ 
+
+<ion-content>
+  <!-- component for the first name input -->
+  <ion-item>
+    <ion-label position="floating">First name</ion-label>
+    <!-- component for the first name, with two-way data binding to the Firstname property -->
+    <ion-input [(ngModel)]="Firstname"></ion-input>
+  </ion-item>
+
+  <!-- component for the last name input -->
+  <ion-item>
+    <ion-label position="floating">Last name</ion-label>
+    <!-- component for the last name, with two-way data binding to the Lastname property -->
+    <ion-input [(ngModel)]="Lastname"></ion-input>
+  </ion-item>
+
+  <!-- component for the email input -->
+  <ion-item>
+    <ion-label position="floating">Email</ion-label>
+    <!-- component for the email, with two-way data binding to the email property -->
+    <ion-input [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+  <!--component for the username input -->
+  <ion-item>
+    <ion-label position="floating">Username</ion-label>
+    <!--component for the username, with two-way data binding to the username property -->
+    <ion-input [(ngModel)]="username"></ion-input>
+  </ion-item>
+
+  <!--component for the password input -->
+  <ion-item>
+    <ion-label position="floating">Password</ion-label>
+    <!--component for the password, with two-way data binding to the password property -->
+    <ion-input type="password" [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+  <!-- component to trigger the register function when clicked -->
+  <ion-button expand="full" (click)="register()">Register</ion-button>
+</ion-content>
